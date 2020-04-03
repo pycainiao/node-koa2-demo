@@ -4,6 +4,7 @@
   "description": "仅记录学习",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./app/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,14 @@
   },
   "homepage": "https://github.com/pycainiao/node-koa2-demo#readme",
   "dependencies": {
-    "koa": "^2.11.0"
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-compress": "^3.0.0",
+    "koa-router": "^8.0.8",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
