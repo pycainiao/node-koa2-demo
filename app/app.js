@@ -14,7 +14,14 @@ const staticPath = './static';
 app.use(staticResources(
     path.join( __dirname,  staticPath)
 ));
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTopology: true});
+
+const Cat = mongoose.model('Cat', { name: String });
+
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow','插入成功'));
 let home = new Router();
 home.get('/home',async (ctx) => {
     console.log(ctx.query)
