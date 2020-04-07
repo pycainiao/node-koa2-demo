@@ -15,19 +15,42 @@ app.use(staticResources(
     path.join( __dirname,  staticPath)
 ));
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema
+// setTimeout(() => {
+    mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTopology: true});
+    // console.log('开始连接')
+// },6000)
+// mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTopology: true});
+let userSchema  = new Schema({
+    name: String,
+    data: Boolean
+},{ collection:'usera' })
+// const Cat = mongoose.model('cat', { name: String }); // 为什么 集合是cats 默认生成的集合是复数的.吊 因为在创建 Schema的时候,没有指定集合名,默认就是复数的
+// const Cat = mongoose.model('cat', userSchema); // 为什么 集合是cats 默认生成的集合是复数的.吊
+const Cat = mongoose.model('cat3123123', userSchema); // 为什么 集合是cats 默认生成的集合是复数的.吊
 
-mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTopology: true});
-
-const Cat = mongoose.model('Cat', { name: String });
-
-const kitty = new Cat({ name: 'Zildjian' });
+const kitty = new Cat({ name: 'Zildjian1',data: true });
 kitty.save().then(() => console.log('meow','插入成功'));
 let home = new Router();
 home.get('/home',async (ctx) => {
-    console.log(ctx.query)
-    console.log(ctx, 'cxt')
-    console.log(ctx.querystring)
-    ctx.body = `这是home`
+    // console.log(ctx.query)
+    // console.log(ctx, 'cxt')
+    // console.log(ctx.querystring)
+    const ceshiMoudel = mongoose.model('wqeqewqw',userSchema);
+    // const ceshiMoudel = mongoose.model('usera');
+    let result = await ceshiMoudel.find();
+    ctx.body = {
+        msg:'ok',
+        result: result
+    }
+    // ceshiMoudel.find({}).then( res => {
+    //     console.log('新的查询结果', res)
+    //     ctx.body =  res
+    // })
+    // ceshiMoudel.find(,res => {
+    //     console.log('查询结果', res);
+    // })
+    // ctx.body = `这是home`
 });
 home.get('/bac',async ctx => {
     const html = `
