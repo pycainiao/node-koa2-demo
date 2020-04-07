@@ -20,8 +20,9 @@
   "homepage": "https://github.com/pycainiao/node-koa2-demo#readme",
   "dependencies": {
     "koa": "^2.11.0",
-    "koa-bodyparser": "^4.3.0",
+    "koa-body": "^4.1.1",
     "koa-compress": "^3.0.0",
+    "koa-parameter": "^3.0.1",
     "koa-router": "^8.0.8",
     "koa-static": "^5.0.0",
     "mongoose": "^5.9.7"
