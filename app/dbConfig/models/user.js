@@ -2,8 +2,7 @@
  * 用户相关
  * @type {Mongoose}
  */
-const mongosse = require('mongoose');
-const {Schema, model } = mongosse;
+const {Schema, model }= require('mongoose');
 
 const User = new Schema({
     __v: { type: Number, select: false },
