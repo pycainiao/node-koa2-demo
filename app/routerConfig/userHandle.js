@@ -24,6 +24,6 @@ router.post('/sign',async ctx => {
         code:2,
         saveData: saveResult
     }
-})
+});
 
 module.exports = router;
