@@ -11,19 +11,14 @@ const compress = require('koa-compress'); // 开启服务器压缩
 app.use(koaBody({}));
 const parameter = require("koa-parameter");
 app.use(parameter(app));
-const userRoute = require('./routerConfig/userHandle');
+const routerTotal = require('./router/index'); // 汇总路由
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true});
 
 
-
-
 // 装载所有子路由
-// let routerTotal = new Router();
-// routerTotal.use(userRoute.routes(),userRoute.allowedMethods());
-// 加载路由中间件
-app.use(userRoute.routes()).use(userRoute.allowedMethods());
+app.use(routerTotal.routes()).use(routerTotal.allowedMethods());
 const options = { threshold: 2048 };//当数据超过2kb的时候，可以压缩
 app.use(compress(options));
 // 在端口监听:

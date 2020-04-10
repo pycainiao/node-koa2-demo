@@ -1,5 +1,6 @@
 const Router = require('koa-router');
-const router = new Router({ prefix: "/user" }); // prefix 代表的是前缀
+// const router = new Router({ prefix: "/user" }); // prefix 代表的是前缀
+const router = new Router(); //
 const UserModels = require('../dbConfig/models/user'); // 引入用户相关的models
 const Article = require('../dbConfig/models/article');
 router.get('/', async (ctx, next) => {
