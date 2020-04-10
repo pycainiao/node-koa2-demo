@@ -37,6 +37,17 @@ router.post('/sign',async ctx => {
         saveData: saveResult
     }
 });
+router.put('/edit', async ctx => {
+    console.log(ctx.request.body);
+    let data = ctx.request.body;
+    console.log(data, 'data')
+    let result = await UserModels.findOneAndUpdate({'userName':data.userName}, {$set:{'passWord': data.passWord}},{new:true}) // 直接返回修改后的数据
+    ctx.body ={
+        code: 'ok',
+        'result': result
+    }
+
+})
 // 提交文章测试
 router.post('/add',async (ctx,next) => {
     let user = await UserModels.findOne({'userName': 'admin'});

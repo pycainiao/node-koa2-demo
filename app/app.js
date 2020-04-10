@@ -14,7 +14,7 @@ app.use(parameter(app));
 const routerTotal = require('./router/index'); // 汇总路由
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false});
 
 
 // 装载所有子路由
