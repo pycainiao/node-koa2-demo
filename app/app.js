@@ -6,11 +6,21 @@ const app = new Koa();
 // const staticResources = require('koa-static');
 const koaBody = require('koa-body'); // 替代koa-bodyparser 同时 这个支持文件,图片上传
 // const path = require('path');
+const error = require("koa-json-error");
 const compress = require('koa-compress'); // 开启服务器压缩
 app.use(koaBody({}));
 const parameter = require("koa-parameter");
 app.use(parameter(app));
 
+// 错误处理
+app.use(
+    error({
+        postFormat: (e, { stack, ...rest }) => {
+            // return rest
+            return process.env.NODE_ENV === "production" ? rest : { stack, ...rest }
+        }
+    })
+);
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false});

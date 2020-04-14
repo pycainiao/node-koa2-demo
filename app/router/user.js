@@ -4,12 +4,11 @@ const router = new Router(); //
 const UserModels = require('../dbConfig/models/user'); // 引入用户相关的models
 const jwt = require("koa-jwt");
 const jsonwebtoken = require("jsonwebtoken");
-const { SECRET } = require('../config/config')
-console.log(SECRET, 'SECRET')
-const auth = jwt({ secret:'nnn' });
-console.log(auth, 'auton')
-router.get('/', auth,async (ctx, next) => {
-    console.log('获取用户信息')
+const { secret } = require('../config/config')
+const auth = jwt({ secret });
+// console.log(auth, 'auton')
+router.get('/',auth,async (ctx, next) => {
+    console.log('获取用户信息', ctx.state)
     // let result = await UserModels.find();
     let result = await UserModels.aggregate([
         {
@@ -29,7 +28,8 @@ router.get('/', auth,async (ctx, next) => {
 });
 // 登录操作
 router.post('/login',async (ctx) => {
-    console.log('SECRET', SECRET);
+    // console.log('SECRET', SECRET);
+    console.log('ctx.request.body', ctx.request.body);
     const user = await UserModels.findOne(ctx.request.body);
     console.log(user, 'user');
     if (!user) {
@@ -39,13 +39,13 @@ router.post('/login',async (ctx) => {
             msg:'用户名,密码错误'
         }
     }
-    const { _id, name } = user;
+    const { _id, userName } = user;
     ctx.body = {
         code:200,
         token: jsonwebtoken.sign(
-            { _id, name },  // 加密userToken, 等同于上面解密的userToken
-        SECRET,
-        {expiresIn: '1h'}  // 有效时长1小时
+            { _id, userName },  // 加密
+            secret,
+        {expiresIn: '12h' } // 有效时长1小时 测试就是10s
         ),
         data:user
     }
