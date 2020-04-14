@@ -2,8 +2,14 @@ const Router = require('koa-router');
 // const router = new Router({ prefix: "/user" }); // prefix 代表的是前缀
 const router = new Router(); //
 const UserModels = require('../dbConfig/models/user'); // 引入用户相关的models
-
-router.get('/', async (ctx, next) => {
+const jwt = require("koa-jwt");
+const jsonwebtoken = require("jsonwebtoken");
+const { SECRET } = require('../config/config')
+console.log(SECRET, 'SECRET')
+const auth = jwt({ secret:'nnn' });
+console.log(auth, 'auton')
+router.get('/', auth,async (ctx, next) => {
+    console.log('获取用户信息')
     // let result = await UserModels.find();
     let result = await UserModels.aggregate([
         {
@@ -21,6 +27,30 @@ router.get('/', async (ctx, next) => {
         data: result
     }
 });
+// 登录操作
+router.post('/login',async (ctx) => {
+    console.log('SECRET', SECRET);
+    const user = await UserModels.findOne(ctx.request.body);
+    console.log(user, 'user');
+    if (!user) {
+        console.log('无结果')
+        return ctx.body = {
+            code: 101,
+            msg:'用户名,密码错误'
+        }
+    }
+    const { _id, name } = user;
+    ctx.body = {
+        code:200,
+        token: jsonwebtoken.sign(
+            { _id, name },  // 加密userToken, 等同于上面解密的userToken
+        SECRET,
+        {expiresIn: '1h'}  // 有效时长1小时
+        ),
+        data:user
+    }
+})
+
 router.post('/sign',async ctx => {
     // ctx.verifyParams({
     //     name: { type: 'string', required: true },

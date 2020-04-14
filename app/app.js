@@ -15,7 +15,6 @@ app.use(parameter(app));
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false});
 
-
 // 装载所有子路由
 const Router = require('koa-router')({prefix:'/api/v1'}); /*这样可以加个统一的前缀*/
 const userHandle = require('./router/user');
