@@ -13,6 +13,6 @@ const Article = new Schema({
         require: true,
         select: false
     }
-})
+},{timestamps: true})
 
 module.exports = model('article', Article);
