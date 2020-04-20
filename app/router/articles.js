@@ -9,7 +9,7 @@ const { checkUser } = require('../common')
 // 获取全部
 router.get('/',checkUser,async (ctx,next) => {
     console.log('这里',ctx.state)
-    let result = await Article.find({userId:ctx.state.user._id}).select('title');
+    let result = await Article.find({userId:ctx.state.user._id}).select('title createdAt updatedAt');
     ctx.body = {
         code:200,
         data:result
