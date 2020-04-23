@@ -7,9 +7,10 @@ const { checkUser } = require('../common')
  * 2020年4月15日23:09:18.目前还少一个验证,就是验证用户的信息ID ,是不是存在这个表中的.? 删除,修改的时候,还没判定
  */
 // 获取全部
-router.get('/',checkUser,async (ctx,next) => {
+router.get('/',async (ctx,next) => {
     console.log('这里',ctx.state)
-    let result = await Article.find({userId:ctx.state.user._id}).select('title createdAt updatedAt');
+    // let result = await Article.find({userId:ctx.state.user._id}).select('title createdAt updatedAt');
+    let result = await Article.find({}).select('title createdAt updatedAt');
     ctx.body = {
         code:200,
         data:result

@@ -28,7 +28,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false});
 
 app.use(jwt({secret}).unless({
-    path:[/^\/api\/v1\/users\/login/, /^\/api\/v1\/users\/sign/]
+    path:[/^\/api\/v1\/users\/login/, /^\/api\/v1\/users\/sign/,/^\/api\/v1\/articles/]
 })); // 只有登录页,注册不需要验证
 
 // 装载所有子路由
