@@ -4,10 +4,11 @@ const router = new Router(); //
 const UserModels = require('../dbConfig/models/user'); // 引入用户相关的models
 
 const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("koa-jwt");
 const { secret } = require('../config/config')
-// const auth = jwt({ secret });
+const auth = jwt({ secret });
 // console.log(auth, 'auton')
-router.get('/',async (ctx, next) => {
+router.get('/',auth,async (ctx, next) => {
     console.log('获取用户信息', ctx.state)
     // let result = await UserModels.find();
     let result = await UserModels.aggregate([

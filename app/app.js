@@ -10,8 +10,8 @@ const error = require("koa-json-error");
 const compress = require('koa-compress'); // 开启服务器压缩
 app.use(koaBody({}));
 const parameter = require("koa-parameter");
-const jwt = require("koa-jwt");
-const { secret } = require('./config/config')
+// const jwt = require("koa-jwt");
+// const { secret } = require('./config/config')
 app.use(parameter(app));
 
 // 错误处理
@@ -27,9 +27,9 @@ app.use(
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ngaCJZ',{useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false});
 
-app.use(jwt({secret}).unless({
-    path:[/^\/api\/v1\/users\/login/, /^\/api\/v1\/users\/sign/,/^\/api\/v1\/articles/]
-})); // 只有登录页,注册不需要验证
+// app.use(jwt({secret}).unless({
+//     path:[/^\/api\/v1\/users\/login/, /^\/api\/v1\/users\/sign/,/^\/api\/v1\/articles/]
+// })); // 只有登录页,注册不需要验证
 
 // 装载所有子路由
 const Router = require('koa-router')({prefix:'/api/v1'}); /*这样可以加个统一的前缀*/

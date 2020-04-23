@@ -3,10 +3,14 @@ const router = new Router();
 const Article = require('../dbConfig/models/article');
 const UserModels = require('../dbConfig/models/user')
 const { checkUser } = require('../common')
+const jwt = require("koa-jwt");
 /**
  * 2020年4月15日23:09:18.目前还少一个验证,就是验证用户的信息ID ,是不是存在这个表中的.? 删除,修改的时候,还没判定
  */
 // 获取全部
+
+const { secret } = require('../config/config')
+const auth = jwt({ secret });
 router.get('/',async (ctx,next) => {
     console.log('这里',ctx.state)
     // let result = await Article.find({userId:ctx.state.user._id}).select('title createdAt updatedAt');
@@ -35,7 +39,7 @@ router.get('/:id',async ctx => {
 
 })
 // 提交文章测试
-router.post('/add',async (ctx,next) => {
+router.post('/add',auth,async (ctx,next) => {
     ctx.verifyParams({
         title: {type: 'string', required: true},
         content: {type: 'string', required: true}
@@ -63,7 +67,7 @@ router.post('/add',async (ctx,next) => {
     }
 },)
 // 删除文章.单个
-router.delete('/:id', async ctx => {
+router.delete('/:id',auth, async ctx => {
     try {
         let result = await Article.findByIdAndRemove(ctx.params.id);
         console.log(result, '删除的结果')
@@ -79,7 +83,7 @@ router.delete('/:id', async ctx => {
     }
 })
 // 修改单个
-router.put('/:id', async  ctx => {
+router.put('/:id',auth, async  ctx => {
     console.log('修改的参数',ctx.request.body);
     try {
         let result = await Article.findByIdAndUpdate(ctx.params.id, {...ctx.request.body});
