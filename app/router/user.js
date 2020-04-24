@@ -68,7 +68,7 @@ router.post('/sign',async ctx => {
     });
     // 校验必须的参数
     console.log('注册相关',ctx.request.body);
-    let {userName, passWord} = ctx.request.body
+    let {userName, passWord,userImg} = ctx.request.body
     let isHaveUser = await UserModels.find({userName});
     console.log(isHaveUser, 'isHaveUser')
     if (isHaveUser.length > 0) {
@@ -78,7 +78,7 @@ router.post('/sign',async ctx => {
         }
     }
     await new UserModels({
-        userName,passWord
+        userName,passWord,userImg
     }).save();
     ctx.body = {
         code:200,
