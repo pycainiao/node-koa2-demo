@@ -39,7 +39,7 @@ router.post('/login',async (ctx) => {
         userName: ctx.request.body.userName,
         passWord: ctx.request.body.passWord
     }
-    const user = await UserModels.findOne(findCondition).select('userName');
+    const user = await UserModels.findOne(findCondition);
     console.log(user, 'user');
     if (!user) {
         console.log('无结果')
