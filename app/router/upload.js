@@ -21,7 +21,7 @@ router.post('/file' ,async ctx => {
     ctx.body = {
         code: 200,
         msg: '上传成功',
-        url: `${ctx.origin}/${basename}`
+        url: `http://localhost:8088/${basename}`
     }
 })
 module.exports = router
