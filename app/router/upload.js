@@ -5,7 +5,7 @@ const path = require('path');
 // const jwt = require("koa-jwt");
 // const { secret } = require('../config/config')
 // const auth = jwt({ secret });
-
+const os = require('os');
 //上次单个文件或者图片
 router.post('/file' ,async ctx => {
     const file = ctx.request.files.file; // 获取上传文件
@@ -21,6 +21,7 @@ router.post('/file' ,async ctx => {
     console.log('request.ur',ctx.url)
     console.log('request.origin',ctx.origin)
     console.log('request.originalUrl',ctx.originalUrl)
+    console.log('端口地址', os.hostname())
     ctx.body = {
         code: 200,
         msg: '上传成功',
