@@ -18,6 +18,9 @@ router.post('/file' ,async ctx => {
     // let filePath = path.join(__dirname+`/${newFileName}`) //
     // const writeStream = fs.createWriteStream(filePath); //  // 创建可写流
     // reader.pipe(writeStream); // 可读流通过管道写入可写流
+    console.log('request.ur',ctx.url)
+    console.log('request.origin',ctx.origin)
+    console.log('request.originalUrl',ctx.originalUrl)
     ctx.body = {
         code: 200,
         msg: '上传成功',
