@@ -8,7 +8,7 @@ const koaBody = require('koa-body'); // 替代koa-bodyparser 同时 这个支持
 const path = require('path');
 const error = require("koa-json-error");
 const compress = require('koa-compress'); // 开启服务器压缩
-
+const {port} = require('./config/config')
 const parameter = require("koa-parameter");
 // const jwt = require("koa-jwt");
 // const { secret } = require('./config/config')
@@ -56,5 +56,5 @@ app.use(Router.routes()).use(Router.allowedMethods());
 const options = { threshold: 2048 };//当数据超过2kb的时候，可以压缩
 app.use(compress(options));
 // 在端口监听:
-app.listen(8088);
-console.log('app started at port 8088...');
+app.listen(port);
+console.log(`app started at port ${port}...`);
